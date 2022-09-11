@@ -1,0 +1,72 @@
+[
+  {
+    "model": "base.room",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "description": "Místnost pro obecnou diskuzi o Python",
+      "created": "2022-09-11T08:33:26.450Z",
+      "updated": "2022-09-11T08:33:26.450Z",
+      "participants": []
+    }
+  },
+  {
+    "model": "base.room",
+    "pk": 2,
+    "fields": {
+      "name": "Java",
+      "description": "Dskuze o programování v JAVA",
+      "created": "2022-09-11T08:33:41.521Z",
+      "updated": "2022-09-11T08:35:38.614Z",
+      "participants": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "base.room",
+    "pk": 3,
+    "fields": {
+      "name": "Django",
+      "description": "Rady jak efektivně využívat Django framework",
+      "created": "2022-09-11T08:34:18.762Z",
+      "updated": "2022-09-11T08:35:33.504Z",
+      "participants": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "base.message",
+    "pk": 1,
+    "fields": {
+      "body": "Django je super",
+      "room": 3,
+      "user": 1,
+      "created": "2022-09-11T08:34:36.135Z",
+      "updated": "2022-09-11T08:34:36.135Z"
+    }
+  },
+  {
+    "model": "base.message",
+    "pk": 2,
+    "fields": {
+      "body": "JAVA je na mě moc těžká přecházím na Python",
+      "room": 2,
+      "user": 1,
+      "created": "2022-09-11T08:34:57.715Z",
+      "updated": "2022-09-11T08:34:57.715Z"
+    }
+  },
+  {
+    "model": "base.message",
+    "pk": 3,
+    "fields": {
+      "body": "Django funguje jen s Python3",
+      "room": 3,
+      "user": 1,
+      "created": "2022-09-11T08:35:20.124Z",
+      "updated": "2022-09-11T08:35:20.124Z"
+    }
+  }
+]
