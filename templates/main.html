@@ -1,11 +1,42 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Bevan" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}"/>
+    <title>Chatterbox application</title>
 </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <h1>
+                <a href="#">Chatterbox</a>
+            </h1>
+        </div>
+
+        <div id="search">
+            <form action="" method="post">
+                <div>
+                    <input class="text" name="search" size="32" maxlength="64"/>
+                </div>
+            </form>
+        </div>
+        <div id="menu">
+            {% include 'navbar.html' %}
+        </div>
+    </div>
+
+    <div id="page">
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <br class="clearfix"/>
+    </div>
+    <br class="clearfix"/>
+</div>
+</body>
 </html>

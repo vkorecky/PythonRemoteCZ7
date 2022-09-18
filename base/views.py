@@ -1,7 +1,9 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
+from base.forms import RoomForm
 from base.models import Room
 
 
@@ -27,3 +29,21 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
     context = {'room': room}
     return render(request, 'base/room.html', context)
+
+
+class RoomsView(ListView):
+    template_name = 'base/rooms.html'
+    model = Room
+
+
+def room_create(request):
+    # request.method == 'POST'
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('rooms')
+    # request.method == 'GET'
+    form = RoomForm()
+    context = {'form': form}
+    return render(request, 'base/room_form.html', context)
