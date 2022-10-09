@@ -3,7 +3,17 @@
 {% block content %}
     <form method="POST">
        {% csrf_token %}
-        <table>{{ form }}</table>
+        {{ form.non_field_errors }}
+        <div>
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+            <b style="color: red">{{ form.name.errors }}</b>
+        </div>
+        <div>
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+            <b style="color: red">{{ form.description.errors }}</b>
+        </div>
         <button type="submit">Submit</button>
     </form>
 {% endblock %}

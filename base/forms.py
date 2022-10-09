@@ -7,6 +7,7 @@ from base.models import Room
 
 LOGGER = getLogger()
 
+
 class RoomForm(ModelForm):
     def clean_name(self):
         name = self.cleaned_data['name']
