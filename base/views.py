@@ -1,7 +1,8 @@
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, FormView
 
 from base.forms import RoomForm
 from base.models import Room
@@ -36,14 +37,31 @@ class RoomsView(ListView):
     model = Room
 
 
-def room_create(request):
-    # request.method == 'POST'
-    if request.method == 'POST':
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('rooms')
-    # request.method == 'GET'
-    form = RoomForm()
-    context = {'form': form}
-    return render(request, 'base/room_form.html', context)
+class RoomCreateView(FormView):
+    template_name = 'base/room_form.html'
+    form_class = RoomForm
+    success_url = reverse_lazy('rooms')
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        cleaned_data = form.cleaned_data
+        Room.objects.create(
+            name=cleaned_data['name'],
+            description=cleaned_data['description'],
+        )
+        return result
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+# def room_create(request):
+#     # request.method == 'POST'
+#     if request.method == 'POST':
+#         form = RoomForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('rooms')
+#     # request.method == 'GET'
+#     form = RoomForm()
+#     context = {'form': form}
+#     return render(request, 'base/room_form.html', context)
