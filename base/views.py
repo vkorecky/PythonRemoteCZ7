@@ -22,12 +22,13 @@ def search(request):
         Q(description__contains=q) |
         Q(name__contains=q)
     )
-    context = {'query': q, 'rooms': rooms}
+    context = {'query': q, 'rooms': rooms, 'pokus': "testing\r\njavascript 'string\" <b>escaping</b>"}
     return render(request, "base/search.html", context)
 
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
+    messages = room.message_set.all()
 
     # POST
     if request.method == 'POST':
@@ -40,7 +41,7 @@ def room(request, pk):
         return redirect('room', pk=room.id)
 
     # GET
-    context = {'room': room}
+    context = {'room': room, 'messages': messages}
     return render(request, 'base/room.html', context)
 
 

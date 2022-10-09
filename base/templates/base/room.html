@@ -9,4 +9,10 @@
             <input name="body" placeholder="Write your message here..."/>
         </form>
     </div>
+    {% for message in messages %}
+        <div class="box">
+            <div><b>{{ message.user }}</b> <i>{{ message.created }}</i></div>
+            <div class="message">{{ message.body }}</div>
+        </div>
+    {% endfor %}
 {% endblock %}
