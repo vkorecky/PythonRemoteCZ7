@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView
 
 from base.forms import RoomForm
-from base.models import Room
+from base.models import Room, Message
 
 
 # Create your views here.
@@ -28,6 +28,18 @@ def search(request):
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
+
+    # POST
+    if request.method == 'POST':
+        Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
+        )
+        room.participants.add(request.user)
+        return redirect('room', pk=room.id)
+
+    # GET
     context = {'room': room}
     return render(request, 'base/room.html', context)
 
