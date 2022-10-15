@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import accounts.views
 import base.views
 
 urlpatterns = [
@@ -27,5 +28,7 @@ urlpatterns = [
     path('room_create/', base.views.RoomCreateView.as_view(), name='room_create'),
     path('room_update/<pk>', base.views.RoomUpdateView.as_view(), name='room_update'),
     path('room_delete/<pk>', base.views.RoomDeleteView.as_view(), name='room_delete'),
-    path('accounts/', include('django.contrib.auth.urls'))
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', accounts.views.SignUpView.as_view(), name='signup'),
 ]
