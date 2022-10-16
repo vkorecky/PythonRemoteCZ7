@@ -11,8 +11,10 @@
                     {{ room.description }}
                 </div>
                 <div style="float: right;">
-                    <a href="{% url 'room_update' room.id %}">Edit</a>
-                    <a href="{% url 'room_delete' room.id %}">Delete</a>
+                    {% if perms.base.delete_room and perms.base.change_room %}
+                        <a href="{% url 'room_update' room.id %}">Edit</a>
+                        <a href="{% url 'room_delete' room.id %}">Delete</a>
+                    {% endif %}
                 </div>
             </div>
         </li>

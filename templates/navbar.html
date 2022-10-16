@@ -3,7 +3,9 @@
         <a href="{% url 'rooms' %}">Home</a>
     </li>
     <li>
-        <a href="{% url 'room_create' %}">Create room</a>
+        {% if perms.base.add_room %}
+            <a href="{% url 'room_create' %}">Create room</a>
+        {%  endif %}
     </li>
     <li class="last-child">
         {{ user.username }}
