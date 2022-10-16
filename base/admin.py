@@ -4,14 +4,14 @@ from django.contrib.admin import ModelAdmin
 from base.models import Room, Message
 
 
-class RoomAdmin(ModelAdmin):
+class MessageAdmin(ModelAdmin):
     # FormView
     fieldsets = [
-        (None, {'fields': ['id', 'name', 'created', 'updated']}),
+        (None, {'fields': ['id', 'body']}),
         (
             'Detail',
             {
-                'fields': ['description'],
+                'fields': ['room', 'created', 'updated'],
                 'description': (
                     'Detailed information about room'
                 )
@@ -20,7 +20,7 @@ class RoomAdmin(ModelAdmin):
         (
             'User Information',
             {
-                'fields': ['participants'],
+                'fields': ['user'],
                 'description': 'These fields are intended to be filled in by our users.'
             }
         )
@@ -29,18 +29,18 @@ class RoomAdmin(ModelAdmin):
 
     # ListView
     @staticmethod
-    def cleanup_description(modeladmin, request, queryset):
-        queryset.update(description=None)
+    def cleanup_body(modeladmin, request, queryset):
+        queryset.update(body="-- Deleted --")
 
-    ordering = ['name']
-    list_display = ['id', 'name', 'description']
-    list_display_links = ['id', 'name']
+    ordering = ['id']
+    list_display = ['id', 'body', 'room']
+    list_display_links = ['id']
     list_per_page = 20
-    list_filter = ['name']
-    search_fields = ['name', 'description']
-    actions = ['cleanup_description']
+    list_filter = ['room']
+    search_fields = ['body', 'room']
+    actions = ['cleanup_body']
 
 
 # Register your models here.
-admin.site.register(Room, RoomAdmin)
-admin.site.register(Message)
+admin.site.register(Room)
+admin.site.register(Message, MessageAdmin)

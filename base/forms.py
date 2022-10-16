@@ -15,10 +15,6 @@ class RoomForm(ModelForm):
             validation_error = ValidationError("Name must contains minimal 2 chars.")
             LOGGER.warning(f'{validation_error}: {name}')
             raise validation_error
-        if Room.objects.filter(name__iexact=name).exists():
-            validation_error = ValidationError("Room already exists.")
-            LOGGER.warning(f'{validation_error}: {name}')
-            raise validation_error
         return name
 
     class Meta:
